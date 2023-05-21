@@ -1,6 +1,6 @@
 # newcountry
 
-A new Flutter project.
+A new Flutter project that allows users to search for any country name, and the app will display the flag as well as some relevant information about that country.
 
 ## Getting Started
 
