@@ -209,6 +209,7 @@ class _LoginScreenState extends State<LoginScreen> {
                 builder: (content) => MainScreen(user: user),
               ),
             );
+            print(responseBody);
           } else {
             ScaffoldMessenger.of(context).showSnackBar(
               const SnackBar(content: Text("Login Failed")),
