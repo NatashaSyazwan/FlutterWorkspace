@@ -38,6 +38,12 @@ dependencies:
   google_fonts: ^4.0.4
   http: ^0.13.6
   shared_preferences: ^2.1.1
+  geocoding: ^2.1.0
+  geolocator: ^9.0.2
+  image_picker: ^0.8.8
+  cached_network_image: ^3.2.3
+  image_cropper: ^4.0.1
+  intl: ^0.18.1
 
 
 dev_dependencies:

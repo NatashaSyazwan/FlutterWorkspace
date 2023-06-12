@@ -13,12 +13,12 @@ class NewsTabScreen extends StatefulWidget {
 }
 
 class _NewsTabScreenState extends State<NewsTabScreen> {
-  String maintitle = "News";
+  String maintitle = "Items";
 
   @override
   void initState() {
     super.initState();
-    print("News");
+    print("Items");
   }
 
   @override

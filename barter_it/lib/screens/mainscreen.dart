@@ -6,8 +6,6 @@ import '../../models/user.dart';
 import 'buyertabscreen.dart';
 import 'newstabscreen.dart';
 
-//for buyer screen
-
 class MainScreen extends StatefulWidget {
   final User user;
 
@@ -69,9 +67,9 @@ class _MainScreenState extends State<MainScreen> {
                 label: "Profile"),
             BottomNavigationBarItem(
                 icon: Icon(
-                  Icons.newspaper,
+                  Icons.shopping_cart_outlined,
                 ),
-                label: "News")
+                label: "Items")
           ]),
     );
   }
@@ -89,7 +87,7 @@ class _MainScreenState extends State<MainScreen> {
         maintitle = "Profile";
       }
       if (_currentIndex == 3) {
-        maintitle = "News";
+        maintitle = "Items";
       }
     });
   }
