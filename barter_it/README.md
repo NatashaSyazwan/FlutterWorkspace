@@ -1,6 +1,6 @@
 # barter_it
 
-A new Flutter project.
+An app that allows users to trade items with the same value, aka barter!
 
 ## Getting Started
 
