@@ -34,10 +34,10 @@ class _EditItemScreenState extends State<EditItemScreen> {
       TextEditingController();
   final TextEditingController _prlocalEditingController =
       TextEditingController();
-  String selectedType = "Clothes";
+  String selectedType = "Women Fashion";
   List<String> itemlist = [
-    "Clothes",
-    "Computers and Accessories",
+    "Computer & Mobile",
+    "Women Fashion",
     "Men Fashion",
     "Health & Beauty",
     "Home & Living",
@@ -91,8 +91,7 @@ class _EditItemScreenState extends State<EditItemScreen> {
                   child: CachedNetworkImage(
                     width: screenWidth,
                     fit: BoxFit.cover,
-                    imageUrl:
-                        "${MyConfig().server}/barter_it/assets/images/${widget.useritem.itemId}.png",
+                    imageUrl: generateImageUrl(),
                     placeholder: (context, url) =>
                         const LinearProgressIndicator(),
                     errorWidget: (context, url, error) =>
@@ -277,10 +276,21 @@ class _EditItemScreenState extends State<EditItemScreen> {
     );
   }
 
+  String generateImageUrl() {
+    List<String> imageUrls = [];
+    for (var index = 1; index <= 3; index++) {
+      String imageUrl =
+          "${MyConfig().server}/barter_it/assets/images/${widget.useritem.itemId}_$index.png";
+      imageUrls.add(imageUrl);
+    }
+    // Return the first image URL by default
+    return imageUrls.isNotEmpty ? imageUrls[0] : "";
+  }
+
   void udpateDialog() {
     if (!_formKey.currentState!.validate()) {
-      ScaffoldMessenger.of(context)
-          .showSnackBar(const SnackBar(content: Text("Check your input")));
+      ScaffoldMessenger.of(context).showSnackBar(
+          const SnackBar(content: Text("Please check your input")));
       return;
     }
 
@@ -291,10 +301,11 @@ class _EditItemScreenState extends State<EditItemScreen> {
           shape: const RoundedRectangleBorder(
               borderRadius: BorderRadius.all(Radius.circular(10.0))),
           title: const Text(
-            "Update your item?",
+            "Update item?",
             style: TextStyle(),
           ),
-          content: const Text("Are you sure?", style: TextStyle()),
+          content: const Text("Are you sure you want to update?",
+              style: TextStyle()),
           actions: <Widget>[
             TextButton(
               child: const Text(
@@ -339,10 +350,14 @@ class _EditItemScreenState extends State<EditItemScreen> {
         }).then((response) {
       print(response.body);
       if (response.statusCode == 200) {
-        var jsondata = jsonDecode(response.body);
+        var responseBody = response.body;
+        if (responseBody.startsWith('success')) {
+          responseBody = responseBody.substring(7);
+        }
+        var jsondata = jsonDecode(responseBody);
         if (jsondata['status'] == 'success') {
-          ScaffoldMessenger.of(context)
-              .showSnackBar(const SnackBar(content: Text("Update Success")));
+          ScaffoldMessenger.of(context).showSnackBar(
+              const SnackBar(content: Text("Update Successful!")));
           Navigator.pop(context);
         } else {
           ScaffoldMessenger.of(context)
