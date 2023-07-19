@@ -130,7 +130,28 @@ class _BuyerTabScreenState extends State<BuyerTabScreen> {
                           return Card(
                             child: InkWell(
                               onTap: () async {
-                                Item useritem =
+                                if (widget.user.id.toString() == "na") {
+                                  ScaffoldMessenger.of(context).showSnackBar(
+                                    const SnackBar(
+                                        content: Text(
+                                            "Please register to view details.")),
+                                  );
+                                } else {
+                                  Item useritem =
+                                      Item.fromJson(itemList[index].toJson());
+                                  await Navigator.push(
+                                      context,
+                                      MaterialPageRoute(
+                                          builder: (content) =>
+                                              BuyerDetailsScreen(
+                                                user: widget.user,
+                                                useritem: useritem,
+                                              )));
+                                  loadItem(1);
+                                }
+                              },
+
+                              /*Item useritem =
                                     Item.fromJson(itemList[index].toJson());
                                 await Navigator.push(
                                     context,
@@ -141,7 +162,8 @@ class _BuyerTabScreenState extends State<BuyerTabScreen> {
                                               useritem: useritem,
                                             )));
                                 loadItem(1);
-                              },
+                              },*/
+
                               child: Column(children: [
                                 CachedNetworkImage(
                                   width: screenWidth,
