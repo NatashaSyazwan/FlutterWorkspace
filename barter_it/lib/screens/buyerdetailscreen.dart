@@ -1,5 +1,6 @@
 import 'dart:convert';
 
+import 'package:barter_it/screens/purchaseitemscreen.dart';
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
@@ -205,10 +206,29 @@ class _BuyerDetailsScreenState extends State<BuyerDetailsScreen> {
           style: const TextStyle(fontSize: 24, fontWeight: FontWeight.bold),
         ),
         ElevatedButton(
-            onPressed: () {
-              addtocartdialog();
-            },
-            child: const Text("Add to Cart"))
+          onPressed: () {
+            if (widget.user.id.toString() ==
+                widget.useritem.userId.toString()) {
+              ScaffoldMessenger.of(context).showSnackBar(
+                  const SnackBar(content: Text("User cannot add own item")));
+              return;
+            } else {
+              Navigator.push(
+                context,
+                MaterialPageRoute(
+                  builder: (context) => PurchaseItemScreen(
+                    itemName: widget.useritem.itemName.toString(),
+                    itemPrice: totalprice,
+
+                    itemQuantity: userqty,
+                    //totalPrice:double.parse(widget.useritem.totalPrice.toString()),
+                  ),
+                ),
+              );
+            }
+          },
+          child: Text('BUY'),
+        ),
       ]),
     );
   }
@@ -226,7 +246,7 @@ class _BuyerDetailsScreenState extends State<BuyerDetailsScreen> {
           shape: const RoundedRectangleBorder(
               borderRadius: BorderRadius.all(Radius.circular(10.0))),
           title: const Text(
-            "Add to cart?",
+            "Buy item?",
             style: TextStyle(),
           ),
           content: const Text("Are you sure?", style: TextStyle()),
